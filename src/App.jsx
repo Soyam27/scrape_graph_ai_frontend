@@ -290,7 +290,6 @@ const CATEGORIES = [
   { name: 'Multiple Pages', icon: '📋', desc: 'Scrape several pages at once' },
   { name: 'Web Search',     icon: '🔍', desc: 'Search the internet and get AI answers' },
   { name: 'Generate Code',  icon: '⚙️', desc: 'Create Python scraping scripts automatically' },
-  { name: 'Files & Docs',   icon: '📄', desc: 'Analyse JSON, CSV, XML, and text files' },
 ]
 
 function defaultForm() {
