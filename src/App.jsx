@@ -334,14 +334,15 @@ function buildPayload(tool, form) {
 }
 
 export default function App() {
-  const [activeCat, setActiveCat] = useState('Websites')
-  const [selected, setSelected]   = useState(null)
-  const [form, setForm]           = useState(defaultForm())
-  const [showAdv, setShowAdv]     = useState(false)
-  const [loading, setLoading]     = useState(false)
-  const [response, setResponse]   = useState(null)
-  const [reqError, setReqError]   = useState(null)
-  const [copied, setCopied]       = useState(false)
+  const [activeCat, setActiveCat]     = useState('Websites')
+  const [selected, setSelected]       = useState(null)
+  const [form, setForm]               = useState(defaultForm())
+  const [showAdv, setShowAdv]         = useState(false)
+  const [loading, setLoading]         = useState(false)
+  const [response, setResponse]       = useState(null)
+  const [reqError, setReqError]       = useState(null)
+  const [copied, setCopied]           = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const catTools  = TOOLS.filter(t => t.category === activeCat)
   const catMeta   = CATEGORIES.find(c => c.name === activeCat)
@@ -404,23 +405,44 @@ export default function App() {
               <div className="header-sub">Turn any website or file into structured data</div>
             </div>
           </div>
-          <div className="header-pill">
-            <span className="status-dot" />
-            <span>Live</span>
+          <div className="header-right">
+            <div className="header-pill">
+              <span className="status-dot" />
+              <span>Live</span>
+            </div>
+            <button
+              className="hamburger"
+              aria-label="Toggle menu"
+              onClick={() => setSidebarOpen(v => !v)}
+            >
+              <span /><span /><span />
+            </button>
           </div>
         </div>
       </header>
 
       <div className="layout">
+        {/* Mobile backdrop */}
+        {sidebarOpen && (
+          <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />
+        )}
+
         {/* Sidebar */}
-        <aside className="sidebar">
-          <div className="sidebar-label">What would you like to do?</div>
+        <aside className={`sidebar${sidebarOpen ? ' sidebar--open' : ''}`}>
+          <div className="sidebar-header-row">
+            <div className="sidebar-label">What would you like to do?</div>
+            <button
+              className="sidebar-close"
+              aria-label="Close menu"
+              onClick={() => setSidebarOpen(false)}
+            >✕</button>
+          </div>
           <nav className="nav">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.name}
                 className={`nav-btn${activeCat === cat.name ? ' active' : ''}`}
-                onClick={() => { setActiveCat(cat.name); setSelected(null) }}
+                onClick={() => { setActiveCat(cat.name); setSelected(null); setSidebarOpen(false) }}
               >
                 <span className="nav-icon">{cat.icon}</span>
                 <span className="nav-name">{cat.name}</span>

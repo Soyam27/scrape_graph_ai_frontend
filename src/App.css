@@ -145,8 +145,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-3);
-  padding: 0 8px;
-  margin-bottom: 4px;
 }
 
 .nav {
@@ -676,3 +674,164 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ── Hamburger (hidden on desktop) ─────────────────── */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--text-2);
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+/* ── Sidebar close btn (hidden on desktop) ──────────── */
+.sidebar-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  margin-bottom: 4px;
+}
+
+.sidebar-close {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-3);
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.12s;
+}
+
+.sidebar-close:hover {
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+/* ── Backdrop ───────────────────────────────────────── */
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header-inner {
+    padding: 0 16px;
+  }
+
+  .header-sub {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Sidebar becomes a fixed overlay */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 200;
+    width: 240px;
+    padding: 20px 12px;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.12);
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+  }
+
+  .sidebar.sidebar--open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 199;
+    backdrop-filter: blur(2px);
+  }
+
+  /* Main takes full width */
+  .main {
+    padding: 20px 16px;
+    width: 100%;
+  }
+
+  .layout {
+    width: 100%;
+  }
+
+  /* Advanced row stacks on small screens */
+  .adv-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tool cards: hide arrow on mobile for breathing room */
+  .tool-arrow {
+    display: none;
+  }
+
+  .tool-card {
+    padding: 14px 14px;
+    gap: 12px;
+  }
+
+  .panel-top {
+    flex-wrap: wrap;
+  }
+
+  .result-body {
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-title {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  .tool-icon {
+    width: 34px;
+    height: 34px;
+  }
+}
